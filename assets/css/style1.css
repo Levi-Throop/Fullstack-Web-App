@@ -1,0 +1,41 @@
+/* styles for the movies table */
+.table {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .table th {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  .table td {
+    text-align: center;
+  }
+  
+  /* styles for the movie poster */
+  .poster {
+    max-width: 50px;
+    height: 25px;
+  }
+  
+  
+  .navbar-nav li a {
+    font-size: 16px;
+  }
+  .navbar-nav {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .navbar-nav > li {
+    display: inline-block;
+    float: none;
+  }
+  
+  .navbar-nav > li > a {
+    font-size: 24px;
+    padding: 10px 15px;
+  }
+  

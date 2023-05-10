@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favorites</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul class="nav">
+          <li><a href="/" class="<%= activePage === 'welcome' ? 'nav__link--hover active' : 'nav__link--hover' %>">Home</a></li>
+          <li><a href="/toprated" class="<%= activePage === 'topRatedMovies' ? 'nav__link--hover active' : 'nav__link--hover' %>">Top Rated Movies</a></li>
+          <li><a href="/favorites" class="<%= activePage === 'favorites' ? 'nav__link--hover active' : 'nav__link--hover' %>">Favorites List</a></li>
+          <li><a href="/displayMovie" class="<%= activePage === 'search' ? 'nav__link--hover active' : 'nav__link--hover' %>">Search</a></li>
+          <li><a href="/addMovie" class="<%= activePage === 'addMovie' ? 'nav__link--hover active' : 'nav__link--hover' %>">Add</a></li>
+          <li><a href="/deleteMovie" class="<%= activePage === 'delete' ? 'nav__link--hover active' : 'nav__link--hover' %>">Delete</a></li>
+        </ul>
+      </nav>
+      <h1 class="title"><span class="wave">💛</span> Personal Favorites</h1>
+      <button onclick="sendGetAllMovies()" id="add-movie-button" class="btn green">Press to Display your Movies</button>
+      <div id="mydiv"></div> <!-- empty div to receive the generated table -->
+    </header>
+
+    <script>
+function sendGetAllMovies() {
+  $.ajax({
+    url: "https://starmovies.herokuapp.com/moviez",
+    type: "get",
+    success: function(response) {
+      var data = response;
+      var table = $("<table>").addClass("table");
+      var headerRow = $("<tr>").append(
+        $("<th>").text("Record ID"),
+        $("<th>").text("Movie Title"),
+        $("<th>").text("Release Date"),
+        $("<th>").text("Rating")
+      );
+      table.append(headerRow);
+      $.each(data, function (i, item) {
+        var row = $("<tr>").append(
+          $("<td>").text(item._id),
+          $("<td>").text(item.movie_title),
+          $("<td>").text(item.release_date),
+          $("<td>").text(item.vote_average)
+        );
+        table.append(row);
+      });
+      $("#mydiv").html(table);
+    },
+    error: function(xhr) {
+      $("#mydiv").text('error: ' + xhr);
+    }
+  });
+}
+    </script> 
+  </body>
+</html>

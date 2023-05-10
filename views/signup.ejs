@@ -1,0 +1,99 @@
+<!--<!DOCTYPE html>
+<html lang="en">-->
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="nav">
+        <li><a href="/" class="nav__link--hover">Home</a></li>
+        <li><a href="/toprated" class="nav__link--hover">Top Rated Movies</a></li>
+        <li><a href="/signup" class="nav__link--hover active">Sign-Up</a></li>
+      </ul>
+    </nav>
+    <h1 class="title">SIGN UP</h1>
+  </header>
+
+  <section id="main">
+    <h2 class="section-title">
+      Register Account
+      <br />Details
+    </h2>
+    <div class="section-container">
+      <div class="row">
+        <form class="form" id="registration-form">
+          <div class="form__input">
+            <label class="form__input--label">Email</label>
+            <input type="email" id="email" required />
+          </div>
+          <div class="form__input">
+            <label class="form__input--label">Username</label>
+            <input type="text" required />
+          </div>
+          <div class="form__input">
+            <label class="form__input--label">Password</label>
+            <input type="password" id="password" required />
+          </div>
+          <button class="btn" type="submit">Register</button>
+          <a href="/userlogin" class="register-message"
+            >Already have an account?</a
+          >
+        </form>
+      </div>
+    </div>
+  </section>
+  <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
+  <script>
+    // Initialize Firebase app
+    const firebaseConfig = {
+      apiKey: "AIzaSyBLQaSKGDZdE07JO4Ed08P7y8vC-fC7kRw",
+      authDomain: "starmovies-c55e6.firebaseapp.com",
+      projectId: "starmovies-c55e6",
+      storageBucket: "starmovies-c55e6.appspot.com",
+      messagingSenderId: "883468338795",
+      appId: "1:883468338795:web:28264d0285fb44ced2d32e",
+      measurementId: "G-Z5MCDLN4WT",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Get auth
+    const auth = firebase.auth();
+
+    // Get registration form and add submit event listener
+    const registrationForm = document.getElementById("registration-form");
+    registrationForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      // Get user inputs
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      // Create new user account in Firebase Auth
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(function (userCredential) {
+          // User account created successfully
+          const user = userCredential.user;
+          console.log("User account created:", user);
+          // Redirect user to welcome page or dashboard
+          window.location.href = "/welcome";
+        })
+        .catch(function (error) {
+          // User account creation failed
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error(
+            "User account creation failed:",
+            errorCode,
+            errorMessage
+          );
+        });
+    });
+  </script>
+</body>

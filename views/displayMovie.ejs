@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include the navbar partial -->
+  <%- include('navbar') %>
+  
+  <title>Movie Search App</title>
+  
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Include Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/bundle.min.js"></script>
+  
+  <!-- Include Bootstrap JavaScript -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <!-- Define a CSS style for movie posters -->
+  <style>
+    .movie-poster {
+      max-height: 100px;
+    }
+  </style>
+  
+  <!-- Define a script for handling the search form submission -->
+  <script>
+    $(document).ready(function() {
+      $('form').submit(function(event) {
+        event.preventDefault();
+        const searchTerm = $('input[name=searchTerm]').val();
+        $.ajax({
+          url: '/getMovie',
+          type: 'POST',
+          data: { searchTerm: searchTerm },
+          success: function(data) {
+            const movies = data.results;
+            const tableBody = $('#movies-table tbody');
+            tableBody.empty();
+            movies.forEach(function(movie) {
+              const title = movie.title;
+              const releaseDate = movie.release_date;
+              const rating = movie.vote_average;
+              const poster = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+              
+              // Create a new table row for the movie
+              const row = $('<tr>');
+              row.append($('<td>').text(title)); // Add the title to the row
+              row.append($('<td>').text(releaseDate)); // Add the release date to the row
+              row.append($('<td>').text(rating)); // Add the rating to the row
+              
+              // Create an image tag for the movie poster
+              row.append($('<td>').html(`<img class="movie-poster" src="${poster}" alt="${title} poster">`));
+              
+              // Add the row to the table body
+              tableBody.append(row);
+            });
+            
+            // Show the table
+            $('#movies-table').show();
+          },
+          error: function(error) {
+            console.log(error);
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Movie Search App</h1>
+  
+  <!-- Create a search form -->
+  <form>
+    <input type="text" name="searchTerm" placeholder="Enter movie title">
+    <button type="submit">Search</button>
+  </form>
+  
+  <!-- Create a table for displaying the search results -->
+  <table class="table" id="movies-table" style="display: none;">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Release Date</th>
+        <th>Rating</th>
+        <th>Poster</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</body>
+</html>

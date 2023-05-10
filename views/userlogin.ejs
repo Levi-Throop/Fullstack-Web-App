@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Login</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul class="nav">
+          <li><a href="/" class="nav__link--hover">Home</a></li>
+          <li><a href="/toprated" class="nav__link--hover">Top Rated Movies</a></li>
+          <li><a href="/signup" class="nav__link--hover">Sign-Up</a></li>
+        </ul>
+      </nav>
+      <h1 class="title">User Login</h1>
+    </header>
+
+    <section id="main">
+      <h2 class="section-title">Log In</h2>
+      <div class="section-container">
+        <div class="row">
+          <form class="form">
+            <div class="form__input">
+              <label class="form__input--label">Username</label>
+              <input type="text" id="email" required />
+            </div>
+            <div class="form__input">
+              <label class="form__input--label">Password</label>
+              <input type="password" id="password" required />
+            </div>
+            <button class="btn" onclick="login(event)">Login</button>
+            <a href="/signup" class="register-message"
+            >I don't have an account</a
+          >
+          </form>
+          
+        </div>
+      </div>
+    </section>
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-auth.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBLQaSKGDZdE07JO4Ed08P7y8vC-fC7kRw",
+        authDomain: "starmovies-c55e6.firebaseapp.com",
+        projectId: "starmovies-c55e6",
+        storageBucket: "starmovies-c55e6.appspot.com",
+        messagingSenderId: "883468338795",
+        appId: "1:883468338795:web:28264d0285fb44ced2d32e",
+        measurementId: "G-Z5MCDLN4WT"
+
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+      function login(event) {
+        event.preventDefault(); // prevent form from submitting
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // User is signed in, redirect to home page
+          window.location.href = "/welcome";
+        })
+        .catch((error) => {
+          // Handle errors here
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+        });
+      }
+    </script>
+  </body

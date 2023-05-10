@@ -1,0 +1,49 @@
+<!-- Start of HTML document -->
+<!DOCTYPE html>
+<html>
+    <!-- Include the navbar partial -->
+    <%- include('navbar') %>
+<head>
+  <!-- Link to Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Link to jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Link to Popper.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/bundle.min.js"></script>
+  <!-- Link to Bootstrap JavaScript -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Start of JavaScript code -->
+  <script>
+    $(document).ready(function() {
+      // Make an AJAX request to '/movies' on document load
+      $.ajax({
+        url: '/movies',
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function(data) {
+          console.log(data); // Log the response data to the console
+          var movies = data; // Assign the response data to the 'movies' variable
+          var tableHtml = '<table class="table">'; // Start building the HTML for the movies table
+          tableHtml += '<thead><tr><th>Title</th><th>Release Date</th><th>Rating</th><th>Poster</th></tr></thead>'; // Add the table header row
+          tableHtml += '<tbody>'; // Start the table body
+          for (var i = 0; i < movies.length; i++) {
+            // Loop through each movie and add a row to the table
+            tableHtml += '<tr><td>' + movies[i].title + '</td><td>' + movies[i].release_date + '</td><td>' + movies[i].vote_average + '</td><td><img src="' + movies[i].poster_url + '"></td></tr>';
+          }
+          tableHtml += '</tbody></table>'; // Close the table body and table tags
+          $('#movies-table').html(tableHtml); // Set the HTML of the '#movies-table' div to the generated table HTML
+        },
+        error: function() {
+          alert('Error'); // Alert the user if there was an error with the AJAX request
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <!-- The '#movies-table' div where the movies table will be displayed -->
+  <div id="movies-table"></div>
+</body>
+</html>
+<!-- End of HTML document -->

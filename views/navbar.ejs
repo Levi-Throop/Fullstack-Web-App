@@ -1,0 +1,54 @@
+<head>
+    <meta charset="utf-8">
+    <title>Levi's Student Records Database</title>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style1.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+      
+  <!-- bootstrap navbar -->
+  <!-- bootstrap navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Z23506930</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="w-100">
+          <ul class="navbar-nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/" class="nav__link--hover">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/toprated" class="nav__link--hover">Top Rated Movies</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/signup" class="nav__link--hover">Sign-Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/welcome" class="nav__link--hover">Welcome</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  
+    <br>
+    <br>
+    <!-- javascriptto highlight active pages-->
+    <script>
+      const currentFile = window.location.pathname;
+      const navbar = document.querySelectorAll('.item');
+      navbar.forEach(item => {
+        if (item.dataset.file == currentFile) {
+          item.classList.add('active');
+        }
+      });
+    </script>
