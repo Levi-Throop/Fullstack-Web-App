@@ -8,8 +8,8 @@
 <h3 align="center">StarMovies</h3>
 
   <p align="center">
-    Hosted on https://starmovies.herokuapp.com/
-    <br />
+    
+    
   </p>
 </div>
 
